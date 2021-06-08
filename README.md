@@ -1,25 +1,25 @@
-# Mosquito classifier (Aedes, Anopheles, Culex) 
-Researcher can use this classifier to automatically distinguish a particular type of mosquito from a large dataset
+# Classificador de mosquitos (Aedes, Anopheles, Culex) 
+O pesquisador pode usar esse classificador para descobrir qual é o tipo de mosquito de uma grande base de dados
 
 ![el](mosq/aedes/pic_012.jpg)
 ![el](mosq/anopheles/pic_053.jpg)
 ![el](mosq/culex/pic_017.jpg)
 
-# Requirements
+# Requisitos
 
 * [docker](https://www.docker.com/products/docker-toolbox)
 * [tensorflow](https://www.tensorflow.org/install)
 * [python](https://www.python.org/downloads)
 * [numpy](https://pypi.python.org/pypi/numpy)
 
-# Usage 
+# Como usar 
 
-1. Start the docker image `docker run -it -v ~/mosquito_classifier/:/mosquito_classifier/ gcr.io/tensorflow/tensorflow:latest-devel`
+1. Inicie uma imagem docker `docker run -it -v ~/mosquito_classifier/:/mosquito_classifier/ docker.io/tensorflow/tensorflow:1.15.3`
 
-2. Run the mosq script to label the image `python /mosquito_classifier/mosq.py <path_to_file>`
+2. Rode o script mosq com a imagem desejada `python /mosquito_classifier/mosq.py <caminho_para_o_arquivo>`
 
-# Accuracy
+# Precisão
 ![accuracy](screenshots/accuracy.png)
 
-# Results
+# Resultados
 ![results](screenshots/tet.png)

@@ -1,30 +1,29 @@
 import tensorflow as tf
 import sys
 
-# change this as you see fit
 image_path = sys.argv[1]
 
-# Read in the image_data
+# lê os dados da imagem
 image_data = tf.gfile.FastGFile(image_path, 'rb').read()
 
-# Loads label file, strips off carriage return
+# Carrega o arquivo de de nomeclatura
 label_lines = [line.rstrip() for line 
-                   in tf.gfile.GFile("/tf_files/mosq_labels.txt")]
+                   in tf.gfile.GFile("mosq_labels.txt")]
 
-# Unpersists graph from file
-with tf.gfile.FastGFile("/tf_files/mosq_graph.pb", 'rb') as f:
+# Carrega os grafos do arquivo da rede neural
+with tf.gfile.FastGFile("mosq_graph.pb", 'rb') as f:
     graph_def = tf.GraphDef()
     graph_def.ParseFromString(f.read())
     _ = tf.import_graph_def(graph_def, name='')
 
 with tf.Session() as sess:
-    # Feed the image_data as input to the graph and get first prediction
+    # Alimenta a rede neural com os dados de imagem e faz a primeira previsão
     softmax_tensor = sess.graph.get_tensor_by_name('final_result:0')
     
     predictions = sess.run(softmax_tensor, \
              {'DecodeJpeg/contents:0': image_data})
     
-    # Sort to show labels of first prediction in order of confidence
+    # Ordena o nome do candidato de acordo com o índice de confiança
     top_k = predictions[0].argsort()[-len(predictions[0]):][::-1]
     
     for node_id in top_k:
